@@ -288,6 +288,20 @@
                 </span> -->
                 </ul>
             </div>
+            <div *ngIf="settings.groupBy && !settings.lazyLoading && itemTempl != undefined" [style.maxHeight]="settings.maxHeight+'px'"
+                style="overflow: auto;">
+                <ul class="lazyContainer">
+                    <span *ngFor="let item of groupedData ; let i = index;">
+                        <li (click)="selectGroup(item)" [ngClass]="{'grp-title': item.grpTitle,'grp-item': !item.grpTitle && !settings.singleSelection}"
+                            class="pure-checkbox">
+                            <input *ngIf="settings.showCheckbox && !settings.singleSelection" type="checkbox" [checked]="item.selected" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item.disabled"
+                            />
+                            <label></label>
+                            <c-templateRenderer [data]="itemTempl" [item]="item"></c-templateRenderer>
+                        </li>
+                    </span>
+                </ul>
+            </div>
             <h5 class="list-message" *ngIf="data?.length == 0">{{settings.noDataLabel}}</h5>
         </div>
     </div>
