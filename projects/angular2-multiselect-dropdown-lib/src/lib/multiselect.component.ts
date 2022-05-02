@@ -300,46 +300,45 @@ export class AngularMultiSelect implements OnInit, ControlValueAccessor, OnChang
     private onChangeCallback: (_: any) => void = noop;
 
     writeValue(value: any) {
-        if (value !== undefined && value !== null && value !== '') {
-            if (this.settings.singleSelection) {
-                if (this.settings.groupBy) {
-                    this.groupedData = this.transformData(this.data, this.settings.groupBy);
-                    this.groupCachedItems = this.cloneArray(this.groupedData);
-                    this.selectedItems = [value[0]];
-                } else {
-                    try {
-
-                        if (value.length > 1) {
-                            this.selectedItems = [value[0]];
-                            throw new MyException(404, { "msg": "Single Selection Mode, Selected Items cannot have more than one item." });
-                        }
-                        else {
-                            this.selectedItems = value;
-                        }
+        if ((Array.isArray(value) && !value.length) || (!Array.isArray(value) && !value)) {
+            this.selectedItems = [];
+            return;
+        }
+        if (this.settings.singleSelection) {
+            if (this.settings.groupBy) {
+                this.groupedData = this.transformData(this.data, this.settings.groupBy);
+                this.groupCachedItems = this.cloneArray(this.groupedData);
+                this.selectedItems = [value[0]];
+            } else {
+                try {
+                    if (value.length > 1) {
+                        this.selectedItems = [value[0]];
+                        throw new MyException(404, { "msg": "Single Selection Mode, Selected Items cannot have more than one item." });
                     }
-                    catch (e) {
-                        console.error(e.body.msg);
+                    else {
+                        this.selectedItems = value;
                     }
                 }
+                catch (e) {
+                    console.error(e.body.msg);
+                }
+            }
 
+        }
+        else {
+            if (this.settings.limitSelection) {
+                this.selectedItems = value.slice(0, this.settings.limitSelection);
             }
             else {
-                if (this.settings.limitSelection) {
-                    this.selectedItems = value.slice(0, this.settings.limitSelection);
-                }
-                else {
-                    this.selectedItems = value;
-                }
-                if (this.selectedItems.length === this.data.length && this.data.length > 0) {
-                    this.isSelectAll = true;
-                }
-                if (this.settings.groupBy) {
-                    this.groupedData = this.transformData(this.data, this.settings.groupBy);
-                    this.groupCachedItems = this.cloneArray(this.groupedData);
-                }
+                this.selectedItems = value;
             }
-        } else {
-            this.selectedItems = [];
+            if (this.selectedItems.length === this.data.length && this.data.length > 0) {
+                this.isSelectAll = true;
+            }
+            if (this.settings.groupBy) {
+                this.groupedData = this.transformData(this.data, this.settings.groupBy);
+                this.groupCachedItems = this.cloneArray(this.groupedData);
+            }
         }
     }
 
