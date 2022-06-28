@@ -33,11 +33,11 @@
 .select-all {
   border-bottom: 1px solid #ccc; }
 
-.list-filter {
+.cuppa-dropdown .list-filter {
   border-bottom: 1px solid #ccc; }
-  .list-filter .c-search svg {
+  .cuppa-dropdown .list-filter .c-search svg {
     fill: #888; }
-  .list-filter .c-clear svg {
+  .cuppa-dropdown .list-filter .c-clear svg {
     fill: #888; }
 
 .pure-checkbox input[type="checkbox"]:focus + label:before, .pure-checkbox input[type="checkbox"]:hover + label:before {

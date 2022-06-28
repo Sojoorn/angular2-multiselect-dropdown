@@ -69,16 +69,19 @@ $selected-background: #e9f4ff;
 .select-all{
     border-bottom: 1px solid #ccc;
 }
-.list-filter{
-    border-bottom: 1px solid #ccc;
-    .c-search{
-        svg {
-            fill: #888;
+
+.cuppa-dropdown {
+    .list-filter{
+        border-bottom: 1px solid #ccc;
+        .c-search{
+            svg {
+                fill: #888;
+            }
         }
-    }
-    .c-clear {
-        svg {
-            fill: #888;
+        .c-clear {
+            svg {
+                fill: #888;
+            }
         }
     }
 }
